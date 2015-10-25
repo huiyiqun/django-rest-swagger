@@ -2,8 +2,10 @@
 import importlib
 import rest_framework
 from rest_framework import viewsets
+from rest_framework.settings import api_settings
 from rest_framework.serializers import BaseSerializer
 from rest_framework_swagger import SWAGGER_SETTINGS
+from rest_framework.authentication import BasicAuthentication
 
 from .introspectors import (
     APIViewIntrospector,
@@ -15,6 +17,16 @@ from .introspectors import (
     get_default_value,
 )
 from .compat import OrderedDict
+
+
+def get_authorizations():
+    '''
+    Only deal with basic authentication for others are not
+    compatible with `Django rest framework`.
+    '''
+    if (BasicAuthentication in api_settings.DEFAULT_AUTHENTICATION_CLASSES):
+        return {"basicAuth": {"type": "basicAuth"}}
+    return dict()
 
 
 class DocumentationGenerator(object):

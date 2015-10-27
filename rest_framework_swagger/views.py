@@ -14,7 +14,7 @@ from rest_framework.utils import formatting
 
 from rest_framework_swagger.urlparser import UrlParser
 from rest_framework_swagger.apidocview import APIDocView
-from rest_framework_swagger.docgenerator import DocumentationGenerator, get_authorizations
+from rest_framework_swagger.docgenerator import DocumentationGenerator, get_authorization_definitions
 
 import rest_framework_swagger as rfs
 
@@ -114,7 +114,7 @@ class SwaggerResourcesView(APIDocView):
                 'termsOfServiceUrl': '',
                 'title': '',
             }),
-            'authorizations': get_authorizations(),
+            'authorizations': get_authorization_definitions(),
         })
 
     def get_base_path(self):
@@ -151,7 +151,7 @@ class SwaggerApiView(APIDocView):
             'resourcePath': '/' + path,
             'apis': generator.generate(apis),
             'models': generator.get_models(apis),
-            'authorizations': get_authorizations(),
+            'authorizations': get_authorization_definitions(),
         })
 
     def get_apis_for_resource(self, filter_path):

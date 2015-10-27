@@ -19,7 +19,7 @@ from .introspectors import (
 from .compat import OrderedDict
 
 
-def get_authorizations():
+def get_authorization_definitions():
     '''
     Only deal with basic authentication for others are not
     compatible with `Django rest framework`.

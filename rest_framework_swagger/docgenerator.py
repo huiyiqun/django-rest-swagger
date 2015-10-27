@@ -29,6 +29,18 @@ def get_authorization_definitions():
     return dict()
 
 
+def get_active_authorizations():
+    '''
+    Authorizations apply to this operation.
+
+    TODO: choose authorizations according to operation.
+    But howto?
+    '''
+    if (BasicAuthentication in api_settings.DEFAULT_AUTHENTICATION_CLASSES):
+        return {"basicAuth": []}
+    return dict()
+
+
 class DocumentationGenerator(object):
     # Serializers defined in docstrings
     explicit_serializers = set()
@@ -107,6 +119,7 @@ class DocumentationGenerator(object):
                 'nickname': method_introspector.get_nickname(),
                 'notes': method_introspector.get_notes(),
                 'type': response_type,
+                'authorizations': get_active_authorizations(),
             }
 
             if doc_parser.yaml_error is not None:
